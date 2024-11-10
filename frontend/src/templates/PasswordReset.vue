@@ -37,7 +37,7 @@ export default {
     methods: {
         async handleResetRequest() {
             try {
-                const response = await this.$axios.post('http://localhost:3000/reset-password', {
+                const response = await this.$axios.post('https://backend-1-4nvf.onrender.com/reset-password', {
                     email: this.email,
                 });
 

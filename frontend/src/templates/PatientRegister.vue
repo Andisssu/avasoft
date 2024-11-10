@@ -349,7 +349,7 @@ export default {
       }
 
       try {
-        await axios.post('http://localhost:3000/register', {
+        await axios.post('https://backend-1-4nvf.onrender.com/register', {
           fullName: this.fullName,
           cpf: this.cpf,
           dataNasc: this.dataNasc,

@@ -28,24 +28,26 @@
                 Visualizar
               </button>
 
-              <button @click="editAssessment(assessment.id_assessment)" class="bg-yellow-500 text-white py-1 px-2 rounded ">Editar</button>
-              <button @click="OpenModaldeleteAssessment(assessment.id_assessment)" class="bg-red-500 text-white py-1 px-2 rounded " aria-haspopup="dialog" aria-expanded="false"
-              aria-controls="hs-danger-alert" data-hs-overlay="#hs-danger-alert">Excluir</button>
-
+              <button @click="editAssessment(assessment.id_assessment)"
+                class="bg-yellow-500 text-white py-1 px-2 rounded ">Editar</button>
+              <button @click="openModalDeleteAssessment(assessment.id_assessment)"
+                class="bg-red-500 text-white py-1 px-2 rounded">
+                Excluir
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-     <!-- Modal de confirmação de exclusão -->
-     <div id="hs-danger-alert"
-      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog"
-      tabindex="-1" aria-labelledby="hs-danger-alert-label">
+    <!-- Modal de confirmação de exclusão -->
+    <div id="delete-confirmation-modal"
+      class="hidden fixed inset-0 z-[80] flex items-center justify-center bg-opacity-50 transition-opacity duration-300 ease-in-out" role="dialog"
+      tabindex="-1">
       <div
-        class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
+        class="relative bg-white rounded-xl shadow-lg md:p-2 transform transition-all duration-300 ease-in-out scale-95">
         <div
-          class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+          class="relative flex flex-col bg-white overflow-hidden ">
           <div class="absolute top-2 end-2">
             <button type="button"
               class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
@@ -95,18 +97,22 @@
     </div>
 
     <!-- Modal de visualização -->
-    <div id="hs-large-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-large-modal-label">
-      <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 h-[calc(100%-3.5rem)] lg:mx-auto">
-        <div class="flex flex-col max-h-full overflow-hidden bg-white border shadow-sm rounded-xl pointer-events-auto">
+    <div id="view-modal"
+      class="hidden fixed inset-0 z-[80] flex items-center justify-center bg-opacity-50 transition-all ease-in-out duration-00"
+      role="dialog" tabindex="-1">
+      <div
+        class="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-xl shadow-lg overflow-hidden h-[calc(100%-3.5rem)]">
+        <div class="flex flex-col max-h-full">
           <div class="flex justify-between items-center py-3 px-4 border-b">
-            <h3 id="hs-large-modal-label" class="font-bold text-gray-800" v-if="selectedAssessment">
+            <h3 id="view-modal-label" class="font-bold text-gray-800" v-if="selectedAssessment">
               Avaliação {{ selectedAssessment.id_assessment }}
             </h3>
             <button type="button"
               class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
-              aria-label="Close" data-hs-overlay="#hs-large-modal" @click="closeModal">
+              aria-label="Close" @click="closeModal">
               <span class="sr-only">Close</span>
-              <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18"></path>
                 <path d="m6 6 12 12"></path>
               </svg>
@@ -152,24 +158,29 @@
             <template v-if="selectedAssessment.method !== 'Dados Livres'">
               <h4 class="mt-4 font-bold">IMC</h4>
               <p v-if="selectedAssessment.bmi"><strong>Valor do IMC:</strong> {{ selectedAssessment.bmi.bmiValue }}</p>
-              <p v-if="selectedAssessment.bmi"><strong>Classificação:</strong> {{ selectedAssessment.bmi.classification }}</p>
+              <p v-if="selectedAssessment.bmi"><strong>Classificação:</strong> {{ selectedAssessment.bmi.classification
+                }}</p>
 
               <h4 class="mt-4 font-bold">Composição Corporal</h4>
-              <p v-if="selectedAssessment.bodyComposition"><strong>Densidade Corporal:</strong> {{ selectedAssessment.bodyComposition.body_density }}</p>
-              <p v-if="selectedAssessment.bodyComposition"><strong>Percentual de Gordura Corporal:</strong> {{ selectedAssessment.bodyComposition.body_fat_percentage }}%</p>
+              <p v-if="selectedAssessment.bodyComposition"><strong>Densidade Corporal:</strong> {{
+                selectedAssessment.bodyComposition.body_density }}</p>
+              <p v-if="selectedAssessment.bodyComposition"><strong>Percentual de Gordura Corporal:</strong> {{
+                selectedAssessment.bodyComposition.body_fat_percentage }}%</p>
             </template>
           </div>
 
           <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t">
             <button type="button"
               class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-              aria-label="Close" data-hs-overlay="#hs-large-modal" @click="closeModal">
+              aria-label="Close" @click="closeModal">
               Fechar
             </button>
           </div>
         </div>
       </div>
     </div>
+    <div id="backdrop"
+      class="hidden transition-opacity duration-300 ease-in-out fixed inset-0 bg-gray-900 bg-opacity-50 z-[79]"></div>
   </div>
 </template>
 
@@ -202,7 +213,7 @@ export default {
   methods: {
     async fetchAssessments() {
       try {
-        const response = await axios.get('http://localhost:3000/assessments');
+        const response = await axios.get('https://backend-1-4nvf.onrender.com/assessments');
         if (response.status === 200) {
           this.assessments = response.data;
         } else {
@@ -214,7 +225,7 @@ export default {
     },
     async fetchAssessmentById(id) {
       try {
-        const response = await axios.get(`http://localhost:3000/assessments/${id}`);
+        const response = await axios.get(`https://backend-1-4nvf.onrender.com/assessments/${id}`);
         if (response.status === 200) {
           this.selectedAssessment = response.data;
         } else {
@@ -229,35 +240,58 @@ export default {
       return new Date(date).toLocaleDateString('pt-BR', options);
     },
     openModal(id) {
-      this.fetchAssessmentById(id);
-      const modal = document.getElementById('hs-large-modal');
+      this.fetchAssessmentById(id); // Função para buscar dados da avaliação
+      const modal = document.getElementById('view-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Exibe o modal e o fundo
       modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
     },
     closeModal() {
-      const modal = document.getElementById('hs-large-modal');
+      const modal = document.getElementById('view-modal');
+      const backdrop = document.getElementById('backdrop');
+      // Oculta o modal e o fundo
       modal.classList.add('hidden');
+      backdrop.classList.add('hidden');
     },
     editAssessment(id_assessment) {
       this.$router.push(`/assessments/${id_assessment}`);
     },
-    OpenModaldeleteAssessment(assessmentId) {
+    openModalDeleteAssessment(assessmentId) {
       this.assessmentToDelete = assessmentId;
+      const modal = document.getElementById('delete-confirmation-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Exibe o fundo e o modal com animação
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('opacity-100');
+
+      modal.classList.remove('hidden', 'scale-95');
+      modal.classList.add('scale-100');
+    },
+    cancelDelete() {
+      const modal = document.getElementById('delete-confirmation-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Oculta o fundo e o modal com animação
+      backdrop.classList.add('opacity-0');
+      setTimeout(() => backdrop.classList.add('hidden'), 300);
+
+      modal.classList.add('scale-95');
+      setTimeout(() => modal.classList.add('hidden'), 300);
     },
     async confirmDeleteAssessment() {
       try {
-        await axios.delete(`http://localhost:3000/assessments/${this.assessmentToDelete}`);
+        await axios.delete(`https://backend-1-4nvf.onrender.com/assessments/${this.assessmentToDelete}`);
         this.assessments = this.assessments.filter(assessment => assessment.id_assessment !== this.assessmentToDelete);
         this.assessmentToDelete = null;
         this.showToastMessage('Avaliação excluída com sucesso', 'success');
-        document.getElementById('hs-danger-alert').classList.add('hidden');
+        this.cancelDelete();
       } catch (error) {
         console.error(error);
         this.showToastMessage('Erro ao excluir avaliação', 'error');
       }
-    },
-    cancelDelete() {
-      this.assessmentToDelete = null;
-      document.getElementById('hs-danger-alert').classList.add('hidden');
     },
     showToastMessage(message, type) {
       this.toastMessage = message;
@@ -275,30 +309,30 @@ export default {
 /* Estilos da tabela */
 
 .disabled {
-  pointer-events: none; 
-  opacity: 0.5; 
-  cursor: not-allowed; 
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th,
 td {
-    padding: 12px;
-    text-align: left;
+  padding: 12px;
+  text-align: left;
 }
 
 button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 button:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 </style>

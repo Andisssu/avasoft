@@ -41,7 +41,6 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

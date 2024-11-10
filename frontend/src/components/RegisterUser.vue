@@ -3,7 +3,7 @@
       
       <div class="content">
         <div class="content">
-          <form id="userForm" action="http://localhost:3000/register" method="post">
+          <form id="userForm" action="https://backend-1-4nvf.onrender.com/register" method="post">
             <h2>Registrar Usuário</h2>
 
             <!-- Informações do Usuário -->

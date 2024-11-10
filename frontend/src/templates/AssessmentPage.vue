@@ -150,7 +150,7 @@ export default {
   methods: {
     async buscarDadosPaciente(id_patient) {
       try {
-        const response = await axios.get(`http://localhost:3000/patient/${id_patient}`);
+        const response = await axios.get(`https://backend-1-4nvf.onrender.com/patient/${id_patient}`);
         const paciente = response.data;
 
         // Verificação e atribuição para o sexo
@@ -268,7 +268,7 @@ export default {
       };
 
       try {
-        const response = await axios.post('http://localhost:3000/assessments', assessmentData);
+        const response = await axios.post('https://backend-1-4nvf.onrender.com/assessments', assessmentData);
         console.log('Avaliação salva!', response.data);
         this.showToastMessage('Avaliação salva com sucesso!', 'success');
       } catch (error) {

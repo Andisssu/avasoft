@@ -42,7 +42,7 @@ export default {
     methods: {
         async fetchUsers() {
             try {
-                const response = await fetch('http://localhost:3000/users');
+                const response = await fetch('https://backend-1-4nvf.onrender.com/users');
                 if (response.ok) {
                     const data = await response.json();
                     this.users = data.users;
@@ -62,7 +62,7 @@ export default {
         async deleteUser(user) {
             try {
                 // Envie uma solicitação de exclusão para o seu servidor
-                const response = await fetch(`http://localhost:3000/users/${user.id_user}`, {
+                const response = await fetch(`https://backend-1-4nvf.onrender.com/users/${user.id_user}`, {
                     method: 'DELETE',
                 });
 

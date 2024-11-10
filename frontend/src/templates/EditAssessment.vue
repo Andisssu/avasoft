@@ -207,7 +207,7 @@ export default {
             try {
                 const id_assessment = this.$route.params.id;
                 console.log('ID da avaliação:', id_assessment);
-                const response = await axios.get(`http://localhost:3000/assessments/${id_assessment}`);
+                const response = await axios.get(`https://backend-1-4nvf.onrender.com/assessments/${id_assessment}`);
                 this.selectedAssessment = response.data;
                 // Atualiza os campos necessários após carregar os dados da avaliação
                 this.atualizarCamposNecessarios();
@@ -260,7 +260,7 @@ export default {
                 };
 
                 console.log('Dados enviados para atualização:', dataToUpdate); // Adicione um log para verificar os dados
-                const response = await axios.put(`http://localhost:3000/assessments/${id_assessment}`, dataToUpdate);
+                const response = await axios.put(`https://backend-1-4nvf.onrender.com/assessments/${id_assessment}`, dataToUpdate);
 
                 console.log('Resposta do servidor:', response.data); // Adicione um log para verificar a resposta
 

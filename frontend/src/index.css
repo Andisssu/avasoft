@@ -45,7 +45,6 @@ h6 {
   /*  when rotating changed icon color */
   --height: 60px;
   /*  height */
-  margin: 0 350px;
   padding-inline-end: 1em;
   /*  change this for padding in the end of input */
   background: var(--input-bg);

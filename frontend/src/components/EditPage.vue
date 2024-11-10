@@ -158,7 +158,7 @@ export default {
     async fetchUserData() {
       try {
         const userId = this.$route.params.id;
-        const response = await axios.get(`http://localhost:3000/users/${userId}`);
+        const response = await axios.get(`https://backend-1-4nvf.onrender.com/users/${userId}`);
         this.user = response.data.user;
         console.log("Dados do usuário:", this.user);
       } catch (error) {
@@ -168,7 +168,7 @@ export default {
     async updateUser() {
   try {
     const userId = this.$route.params.id;
-    await axios.put(`http://localhost:3000/users/${userId}`, this.user);
+    await axios.put(`https://backend-1-4nvf.onrender.com/users/${userId}`, this.user);
     this.$router.push("/users");
   } catch (error) {
     console.error("Erro ao atualizar dados do usuário:", error);

@@ -5,9 +5,9 @@
       Bem vindo (Profissional de Saude)
     </h1>
 
-    <form class="form">
-      <label for="search">
-        <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text">
+    <form class="form w-full max-w-md mx-auto">
+      <label for="search" class="w-full">
+        <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text" class="w-full min-w-[200px]">
         <div class="icon">
           <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="swap-on">
@@ -55,15 +55,16 @@
               <td class="py-2 px-4 text-center rounded-r-lg flex justify-center space-x-2">
                 <button type="button"
                   class="bg-blue-500 text-white py-1 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent"
-                  aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-large-modal"
-                  data-hs-overlay="#hs-large-modal" @click="openModal(assessment.id_assessment)">
+                  @click="openModal(assessment.id_assessment)">
                   Visualizar
                 </button>
                 <button @click="editAssessment(assessment.id_assessment)"
-                  class="bg-yellow-500 text-white py-1 px-2 rounded ">Editar</button>
-                <button @click="OpenModaldeleteAssessment(assessment.id_assessment)"
-                  class="bg-red-500 text-white py-1 px-2 rounded " aria-haspopup="dialog" aria-expanded="false"
-                  aria-controls="hs-danger-alert" data-hs-overlay="#hs-danger-alert">Excluir</button>
+                  class="bg-yellow-500 text-white py-1 px-2 rounded ">Editar
+                </button>
+                <button @click="openModalDeleteAssessment(assessment.id_assessment)"
+                  class="bg-red-500 text-white py-1 px-2 rounded">
+                  Excluir
+                </button>
               </td>
             </tr>
           </tbody>
@@ -72,13 +73,12 @@
     </div>
 
     <!-- Modal de confirmação de exclusão -->
-    <div id="hs-danger-alert"
-      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog"
-      tabindex="-1" aria-labelledby="hs-danger-alert-label">
+    <div id="delete-confirmation-modal"
+      class="hidden fixed inset-0 z-[80] flex items-center justify-center bg-opacity-50 transition-opacity duration-300 ease-in-out"
+      role="dialog" tabindex="-1">
       <div
-        class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
-        <div
-          class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+        class="relative bg-white rounded-xl shadow-lg md:p-2 transform transition-all duration-300 ease-in-out scale-95">
+        <div class="relative flex flex-col bg-white overflow-hidden ">
           <div class="absolute top-2 end-2">
             <button type="button"
               class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
@@ -128,19 +128,19 @@
     </div>
 
     <!-- Modal de visualização -->
-    <div id="hs-large-modal"
-      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog"
-      tabindex="-1" aria-labelledby="hs-large-modal-label">
+    <div id="view-modal"
+      class="hidden fixed inset-0 z-[80] flex items-center justify-center bg-opacity-50 transition-all ease-in-out duration-00"
+      role="dialog" tabindex="-1">
       <div
-        class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 h-[calc(100%-3.5rem)] lg:mx-auto">
-        <div class="flex flex-col max-h-full overflow-hidden bg-white border shadow-sm rounded-xl pointer-events-auto">
+        class="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-xl shadow-lg overflow-hidden h-[calc(100%-3.5rem)]">
+        <div class="flex flex-col max-h-full">
           <div class="flex justify-between items-center py-3 px-4 border-b">
-            <h3 id="hs-large-modal-label" class="font-bold text-gray-800" v-if="selectedAssessment">
+            <h3 id="view-modal-label" class="font-bold text-gray-800" v-if="selectedAssessment">
               Avaliação {{ selectedAssessment.id_assessment }}
             </h3>
             <button type="button"
               class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
-              aria-label="Close" data-hs-overlay="#hs-large-modal" @click="closeModal">
+              aria-label="Close" @click="closeModal">
               <span class="sr-only">Close</span>
               <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -203,13 +203,15 @@
           <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t">
             <button type="button"
               class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-              aria-label="Close" data-hs-overlay="#hs-large-modal" @click="closeModal">
+              aria-label="Close" @click="closeModal">
               Fechar
             </button>
           </div>
         </div>
       </div>
     </div>
+    <div id="backdrop"
+      class="hidden transition-opacity duration-300 ease-in-out fixed inset-0 bg-gray-900 bg-opacity-50 z-[79]"></div>
   </div>
 </template>
 
@@ -247,7 +249,7 @@ export default {
   methods: {
     async fetchAssessments() {
       try {
-        const response = await axios.get('http://localhost:3000/assessments');
+        const response = await axios.get('https://backend-1-4nvf.onrender.com/assessments');
         if (response.status === 200) {
           this.assessments = response.data;
         } else {
@@ -259,7 +261,7 @@ export default {
     },
     async fetchAssessmentById(id) {
       try {
-        const response = await axios.get(`http://localhost:3000/assessments/${id}`);
+        const response = await axios.get(`https://backend-1-4nvf.onrender.com/assessments/${id}`);
         if (response.status === 200) {
           this.selectedAssessment = response.data;
         } else {
@@ -274,35 +276,58 @@ export default {
       return new Date(date).toLocaleDateString('pt-BR', options);
     },
     openModal(id) {
-      this.fetchAssessmentById(id);
-      const modal = document.getElementById('hs-large-modal');
+      this.fetchAssessmentById(id); // Função para buscar dados da avaliação
+      const modal = document.getElementById('view-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Exibe o modal e o fundo
       modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
     },
     closeModal() {
-      const modal = document.getElementById('hs-large-modal');
+      const modal = document.getElementById('view-modal');
+      const backdrop = document.getElementById('backdrop');
+      // Oculta o modal e o fundo
       modal.classList.add('hidden');
+      backdrop.classList.add('hidden');
     },
     editAssessment(id_assessment) {
       this.$router.push(`/assessments/${id_assessment}`);
     },
-    OpenModaldeleteAssessment(assessmentId) {
+    openModalDeleteAssessment(assessmentId) {
       this.assessmentToDelete = assessmentId;
+      const modal = document.getElementById('delete-confirmation-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Exibe o fundo e o modal com animação
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('opacity-100');
+
+      modal.classList.remove('hidden', 'scale-95');
+      modal.classList.add('scale-100');
+    },
+    cancelDelete() {
+      const modal = document.getElementById('delete-confirmation-modal');
+      const backdrop = document.getElementById('backdrop');
+
+      // Oculta o fundo e o modal com animação
+      backdrop.classList.add('opacity-0');
+      setTimeout(() => backdrop.classList.add('hidden'), 300);
+
+      modal.classList.add('scale-95');
+      setTimeout(() => modal.classList.add('hidden'), 300);
     },
     async confirmDeleteAssessment() {
       try {
-        await axios.delete(`http://localhost:3000/assessments/${this.assessmentToDelete}`);
+        await axios.delete(`https://backend-1-4nvf.onrender.com/assessments/${this.assessmentToDelete}`);
         this.assessments = this.assessments.filter(assessment => assessment.id_assessment !== this.assessmentToDelete);
         this.assessmentToDelete = null;
         this.showToastMessage('Avaliação excluída com sucesso', 'success');
-        document.getElementById('hs-danger-alert').classList.add('hidden');
+        this.cancelDelete();
       } catch (error) {
         console.error(error);
         this.showToastMessage('Erro ao excluir avaliação', 'error');
       }
-    },
-    cancelDelete() {
-      this.assessmentToDelete = null;
-      document.getElementById('hs-danger-alert').classList.add('hidden');
     },
     showToastMessage(message, type) {
       this.toastMessage = message;
@@ -349,123 +374,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 }
 
-.form {
-  --input-bg: #FFf;
-  /*  background of input */
-  --padding: 1.5em;
-  --rotate: 80deg;
-  /*  rotation degree of input*/
-  --gap: 2em;
-  /*  gap of items in input */
-  --icon-change-color: #15A986;
-  /*  when rotating changed icon color */
-  --height: 55px;
-  /*  height */
 
-  padding-inline-end: 1em;
-  /*  change this for padding in the end of input */
-  background: var(--input-bg);
-  position: relative;
-  border-radius: 4px;
-}
 
-.form label {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: var(--height);
-}
-
-.form input {
-  width: 100%;
-  padding-inline-start: calc(var(--padding) + var(--gap));
-  outline: none;
-  background: none;
-  border: 0;
-}
-
-/* style for both icons -- search,close */
-.form svg {
-  /* display: block; */
-  color: #111;
-  transition: 0.3s cubic-bezier(.4, 0, .2, 1);
-  position: absolute;
-  height: 25px;
-}
-
-/* search icon */
-.icon {
-  position: absolute;
-  left: var(--padding);
-  transition: 0.3s cubic-bezier(.4, 0, .2, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* arrow-icon*/
-.swap-off {
-  transform: rotate(-80deg);
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* close button */
-.close-btn {
-  /* removing default bg of button */
-  background: none;
-  border: none;
-  right: calc(var(--padding) - var(--gap));
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #111;
-  padding: 0.1em;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  transition: 0.3s;
-  opacity: 0;
-  transform: scale(0);
-  visibility: hidden;
-}
-
-.form input:focus~.icon {
-  transform: rotate(var(--rotate)) scale(1.3);
-}
-
-.form input:focus~.icon .swap-off {
-  opacity: 1;
-  transform: rotate(-80deg);
-  visibility: visible;
-  color: var(--icon-change-color);
-}
-
-.form input:focus~.icon .swap-on {
-  opacity: 0;
-  visibility: visible;
-}
-
-.form input:valid~.icon {
-  transform: scale(1.3) rotate(var(--rotate))
-}
-
-.form input:valid~.icon .swap-off {
-  opacity: 1;
-  visibility: visible;
-  color: var(--icon-change-color);
-}
-
-.form input:valid~.icon .swap-on {
-  opacity: 0;
-  visibility: visible;
-}
-
-.form input:valid~.close-btn {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-  transition: 0s;
-}
 </style>

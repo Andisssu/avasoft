@@ -50,7 +50,7 @@ export default {
             }
 
             try {
-                const response = await this.$axios.post('http://localhost:3000/reset-password-confirm', {
+                const response = await this.$axios.post('https://backend-1-4nvf.onrender.com/reset-password-confirm', {
                     resetToken: this.resetToken,
                     newPassword: this.newPassword,
                     confirmPassword:this.confirmPassword
